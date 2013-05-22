@@ -23,7 +23,6 @@ using System.Security.Principal;
 using System.Text;
 using System.Web.Management;
 using System.Xml;
-using Gibraltar.Agent.Logging;
 using Gibraltar.Agent.Web.Internal;
 
 #endregion
@@ -127,86 +126,88 @@ namespace Gibraltar.Agent.Web
 
                 //process types we explicitly understand first
 
-                if (raisedEvent is WebSuccessAuditEvent)
+                WebSuccessAuditEvent webSuccessAuditEvent;
+                WebViewStateFailureAuditEvent webViewStateFailureAuditEvent;
+                WebFailureAuditEvent webFailureAuditEvent;
+                WebRequestEvent webRequestEvent;
+                WebRequestErrorEvent webRequestErrorEvent;
+                WebErrorEvent webErrorEvent;
+                WebBaseErrorEvent webBaseErrorEvent;
+                WebApplicationLifetimeEvent webApplicationLifetimeEvent;
+                WebManagementEvent webManagementEvent;
+
+                if ((webSuccessAuditEvent = raisedEvent as WebSuccessAuditEvent) != null)
                 {
                     //it's an otherwise unknown inheritor of the success event, treat it as such.
-                    WebSuccessAuditEvent specificEvent = raisedEvent as WebSuccessAuditEvent;
 
                     severity = LogMessageSeverity.Verbose;
-                    processInformation = specificEvent.ProcessInformation;
-                    requestInformation = specificEvent.RequestInformation;
+                    processInformation = webSuccessAuditEvent.ProcessInformation;
+                    requestInformation = webSuccessAuditEvent.RequestInformation;
                 }
-                else if (raisedEvent is WebViewStateFailureAuditEvent)
+                else if ((webViewStateFailureAuditEvent = raisedEvent as WebViewStateFailureAuditEvent) != null)
                 {
                     //it's an otherwise unknown inheritor of the failure audit event, treat it as such.
-                    WebViewStateFailureAuditEvent specificEvent = raisedEvent as WebViewStateFailureAuditEvent;
 
                     severity = LogMessageSeverity.Error;
-                    exception = specificEvent.ViewStateException;
+                    exception = webViewStateFailureAuditEvent.ViewStateException;
                     GenerateLogMessage(exception, ref caption, ref description); //override the generic caption we created earlier.
 
-                    processInformation = specificEvent.ProcessInformation;
-                    requestInformation = specificEvent.RequestInformation;
+                    processInformation = webViewStateFailureAuditEvent.ProcessInformation;
+                    requestInformation = webViewStateFailureAuditEvent.RequestInformation;
                 }
-                else if (raisedEvent is WebFailureAuditEvent)
+                else if ((webFailureAuditEvent = raisedEvent as WebFailureAuditEvent) != null)
                 {
                     //it's an otherwise unknown inheritor of the failure event, treat it as such.
-                    WebFailureAuditEvent specificEvent = raisedEvent as WebFailureAuditEvent;
 
                     severity = LogMessageSeverity.Warning;
 
-                    processInformation = specificEvent.ProcessInformation;
-                    requestInformation = specificEvent.RequestInformation;
+                    processInformation = webFailureAuditEvent.ProcessInformation;
+                    requestInformation = webFailureAuditEvent.RequestInformation;
                 }
-                else if (raisedEvent is WebRequestEvent)
+                else if ((webRequestEvent = raisedEvent as WebRequestEvent) != null)
                 {
                     //it's an otherwise unknown inheritor of the request event, treat it as such.
-                    WebRequestEvent specificEvent = raisedEvent as WebRequestEvent;
 
                     severity = LogMessageSeverity.Information;
 
-                    processInformation = specificEvent.ProcessInformation;
-                    requestInformation = specificEvent.RequestInformation;
+                    processInformation = webRequestEvent.ProcessInformation;
+                    requestInformation = webRequestEvent.RequestInformation;
                 }
-                else if (raisedEvent is WebRequestErrorEvent)
+                else if ((webRequestErrorEvent = raisedEvent as WebRequestErrorEvent) != null)
                 {
                     //it's an otherwise unknown inheritor of the request error event, treat it as such.
-                    WebRequestErrorEvent specificEvent = raisedEvent as WebRequestErrorEvent;
 
                     severity = LogMessageSeverity.Error;
-                    exception = specificEvent.ErrorException;
+                    exception = webRequestErrorEvent.ErrorException;
                     GenerateLogMessage(exception, ref caption, ref description); //override the generic caption we created earlier.
 
-                    processInformation = specificEvent.ProcessInformation;
-                    requestInformation = specificEvent.RequestInformation;
-                    threadInformation = specificEvent.ThreadInformation;
+                    processInformation = webRequestErrorEvent.ProcessInformation;
+                    requestInformation = webRequestErrorEvent.RequestInformation;
+                    threadInformation = webRequestErrorEvent.ThreadInformation;
                 }
-                else if (raisedEvent is WebErrorEvent)
+                else if ((webErrorEvent = raisedEvent as WebErrorEvent) != null)
                 {
                     //it's an otherwise unknown inheritor of the error event, treat it as such.
-                    WebErrorEvent specificEvent = raisedEvent as WebErrorEvent;
 
                     severity = LogMessageSeverity.Error;
-                    exception = specificEvent.ErrorException;
+                    exception = webErrorEvent.ErrorException;
                     GenerateLogMessage(exception, ref caption, ref description); //override the generic caption we created earlier.
 
-                    processInformation = specificEvent.ProcessInformation;
-                    requestInformation = specificEvent.RequestInformation;
-                    threadInformation = specificEvent.ThreadInformation;
+                    processInformation = webErrorEvent.ProcessInformation;
+                    requestInformation = webErrorEvent.RequestInformation;
+                    threadInformation = webErrorEvent.ThreadInformation;
                 }
-                else if (raisedEvent is WebBaseErrorEvent)
+                else if ((webBaseErrorEvent = raisedEvent as WebBaseErrorEvent) != null)
                 {
                     //it's an otherwise unknown inheritor of the base error event, treat it as such.
-                    WebBaseErrorEvent specificEvent = raisedEvent as WebBaseErrorEvent;
 
-                    exception = specificEvent.ErrorException;
+                    exception = webBaseErrorEvent.ErrorException;
                     severity = LogMessageSeverity.Error;
 
-                    processInformation = specificEvent.ProcessInformation;
+                    processInformation = webBaseErrorEvent.ProcessInformation;
                 }
-                else if (raisedEvent is WebApplicationLifetimeEvent)
+                else if ((webApplicationLifetimeEvent = raisedEvent as WebApplicationLifetimeEvent) != null)
                 {
-                    WebApplicationLifetimeEvent specificEvent = raisedEvent as WebApplicationLifetimeEvent;
 
                     //we use different severities for two scenarios:  Compilation and startup/shutdown
                     if ((raisedEvent.EventCode == WebEventCodes.ApplicationCompilationStart)
@@ -219,16 +220,15 @@ namespace Gibraltar.Agent.Web
                         severity = LogMessageSeverity.Information;
                     }
 
-                    processInformation = specificEvent.ProcessInformation;
+                    processInformation = webApplicationLifetimeEvent.ProcessInformation;
                 }
-                else if (raisedEvent is WebManagementEvent)
+                else if ((webManagementEvent = raisedEvent as WebManagementEvent) != null)
                 {
                     //it's an otherwise unknown inheritor of the management event, treat it as such.
-                    WebManagementEvent specificEvent = raisedEvent as WebManagementEvent;
 
                     severity = LogMessageSeverity.Information;
 
-                    processInformation = specificEvent.ProcessInformation;
+                    processInformation = webManagementEvent.ProcessInformation;
                 }
                 else
                 {

@@ -48,7 +48,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Gibraltar.Agent">
-      <HintPath>..\..\packages\Gibraltar.Agent.3.5.0.1453\lib\2.0\Gibraltar.Agent.dll</HintPath>
+      <HintPath>..\..\packages\Gibraltar.Agent.3.5.0.1460\lib\2.0\Gibraltar.Agent.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

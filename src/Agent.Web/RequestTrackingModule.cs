@@ -130,58 +130,17 @@ namespace Gibraltar.Agent.Web
                 m_CurrentRequestMetric.Dispose();
             }
 
-            //create a new metric.  We then go configure it, but we may set it back to null if this is an image or something.
-            m_CurrentRequestMetric = new HttpRequestMetric();
-
             try
             {
-
                 HttpApplication application = sender as HttpApplication;
                 Debug.Assert(application != null);
 
                 //figure out the page and the full path in our friendly form.
                 HttpRequest request = application.Request;
                 string fullAppRelativePath = request.AppRelativeCurrentExecutionFilePath;
+                string queryString = request.Url.Query;
 
-                if (string.IsNullOrEmpty(fullAppRelativePath) == false)
-                {
-
-                    //but pull off the ~/ to get rid of silliness
-                    if (fullAppRelativePath.StartsWith("~/"))
-                    {
-                        fullAppRelativePath = fullAppRelativePath.Substring(2);
-                    }
-
-                    m_CurrentRequestMetric.AbsolutePath = fullAppRelativePath;
-
-                    //now see if we can find just the file name.
-                    int fileStartIndex = fullAppRelativePath.LastIndexOfAny(Delimiters);
-                    if (fileStartIndex == -1)
-                        fileStartIndex = 0; //we never found a slash, so we start at zero.
-                    else
-                        fileStartIndex++; //because we don't really want the slash.
-
-                    //and we don't want any extension for this pretty name...
-                    int extensionIndex = fullAppRelativePath.IndexOf('.', fileStartIndex);
-                    if (extensionIndex == -1)
-                        extensionIndex = fullAppRelativePath.Length - 1; //so we go to the end.
-
-                    int nameLength = (extensionIndex - fileStartIndex);
-                    m_CurrentRequestMetric.PageName = (nameLength  > 0) ? fullAppRelativePath.Substring(fileStartIndex, (extensionIndex - fileStartIndex)) : string.Empty;
-
-                    m_CurrentRequestMetric.QueryString = request.Url.Query;
-
-                    //and get the extension as well, so we can decide if we even care about this guy.
-                    if (extensionIndex < (fullAppRelativePath.Length - 1))
-                    {
-                        string extension = fullAppRelativePath.Substring(extensionIndex + 1); //add the one to get rid of the period.
-
-                        if ((string.IsNullOrEmpty(extension) == false) && (IsExcludedExtension(extension.ToLowerInvariant())))
-                            m_CurrentRequestMetric = null; //so we don't record jack.
-                    }
-
-                    //careful!  at this point the current request may be null
-                }
+                m_CurrentRequestMetric = BuildRequestMetric(fullAppRelativePath, queryString);
             }
             catch (Exception ex)
             {
@@ -190,6 +149,51 @@ namespace Gibraltar.Agent.Web
 #if DEBUG
                 Log.RecordException(ex, "System", true);
 #endif
+            }
+        }
+
+        internal static HttpRequestMetric BuildRequestMetric(string fullAppRelativePath, string queryString)
+        {
+            if (string.IsNullOrEmpty(fullAppRelativePath))
+            {
+                return new HttpRequestMetric();
+            }
+            {
+                //but pull off the ~/ to get rid of silliness
+                if (fullAppRelativePath.StartsWith("~/"))
+                    fullAppRelativePath = fullAppRelativePath.Substring(2);
+
+
+                //now see if we can find just the file name.
+                int fileStartIndex = fullAppRelativePath.LastIndexOfAny(Delimiters);
+                if (fileStartIndex == -1)
+                    fileStartIndex = 0; //we never found a slash, so we start at zero.
+                else
+                    fileStartIndex++; //because we don't really want the slash.
+
+                //and we don't want any extension for this pretty name...
+                int extensionIndex = fullAppRelativePath.IndexOf('.', fileStartIndex);
+                if (extensionIndex == -1)
+                    extensionIndex = fullAppRelativePath.Length - 1; //so we go to the end.
+
+                //and get the extension as well, so we can decide if we even care about this guy.
+                if (extensionIndex < (fullAppRelativePath.Length - 1))
+                {
+                    string extension = fullAppRelativePath.Substring(extensionIndex + 1); //add the one to get rid of the period.
+
+                    if ((string.IsNullOrEmpty(extension) == false) && (IsExcludedExtension(extension.ToLowerInvariant())))
+                        return null;
+                }
+
+                int nameLength = (extensionIndex - fileStartIndex);
+
+                return new HttpRequestMetric
+                           {
+                               AbsolutePath = fullAppRelativePath,
+                               PageName = (nameLength > 0) ? fullAppRelativePath.Substring(fileStartIndex, (extensionIndex - fileStartIndex)) : string.Empty,
+                               QueryString = queryString,
+                           };
+                //careful!  at this point the current request may be null
             }
         }
 

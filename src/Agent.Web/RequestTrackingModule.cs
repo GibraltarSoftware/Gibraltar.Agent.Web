@@ -31,7 +31,7 @@ namespace Gibraltar.Agent.Web
     public class RequestTrackingModule : IHttpModule
     {
         private static readonly char[] Delimiters = new [] { '/', '\\' };
-        private static readonly string[] ExcludedExtensions = new [] { "jpg", "jpeg", "gif", "png", "ico", "css", "js", "bmp"};
+        private static readonly HashSet<string> ExcludedExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {"jpg", "jpeg", "gif", "png", "ico", "css", "js", "bmp"};
 
         private HttpRequestMetric m_CurrentRequestMetric;
 
@@ -105,19 +105,9 @@ namespace Gibraltar.Agent.Web
 
         #region Private Properties and Methods
 
-        private static bool IsExcludedExtension(string extension)
+        internal static bool IsExcludedExtension(string extension)
         {
-            //quick bail for obvious false case
-            if (extension.Equals("aspx", StringComparison.Ordinal) || extension.Equals("asmx", StringComparison.Ordinal))
-                return false;
-
-            foreach (string excludedExtension in ExcludedExtensions)
-            {
-                if (extension.Equals(excludedExtension, StringComparison.Ordinal))
-                    return true;
-            }
-
-            return false;
+            return ExcludedExtensions.Contains(extension);
         }
 
         #endregion

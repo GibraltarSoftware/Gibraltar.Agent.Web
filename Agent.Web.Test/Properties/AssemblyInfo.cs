@@ -1,17 +1,16 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Agent for ASP.NET")]
-[assembly: AssemblyDescription("ASP.NET Health Monitoring and Metrics for Loupe")]
+[assembly: AssemblyTitle("Agent.Web.Test")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Gibraltar Software Inc.")]
-[assembly: AssemblyProduct("Loupe")]
-[assembly: AssemblyCopyright("Copyright © 2008-2013 Gibraltar Software Inc.")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Agent.Web.Test")]
+[assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -21,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("be97d3b7-867d-41cd-9bb1-2667accf587f")]
+[assembly: Guid("b5062c53-e83b-4f8d-9078-dd62bbf46517")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -33,8 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.0.0.0")]
-[assembly: AssemblyFileVersion("3.0.0.0")]
-[assembly: CLSCompliant(true)]
-[assembly: AssemblyInformationalVersionAttribute("3.0.0.0")]
-[assembly: InternalsVisibleTo("Agent.Web.Test")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

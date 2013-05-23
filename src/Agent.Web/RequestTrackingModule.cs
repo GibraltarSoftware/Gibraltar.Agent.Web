@@ -25,13 +25,15 @@ using Gibraltar.Agent.Web.Internal;
 
 namespace Gibraltar.Agent.Web
 {
+    using System.Threading;
+
     /// <summary>
     /// An ASP.NET HttpModule for performance tracking with Gibraltar.
     /// </summary>
     public class RequestTrackingModule : IHttpModule
     {
         private static readonly char[] Delimiters = new [] { '/', '\\' };
-        private static readonly string[] ExcludedExtensions = new [] { "jpg", "jpeg", "gif", "png", "ico", "css", "js", "bmp"};
+        private static readonly HashSet<string> ExcludedExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {"jpg", "jpeg", "gif", "png", "ico", "css", "js", "bmp"};
 
         private HttpRequestMetric m_CurrentRequestMetric;
 
@@ -105,19 +107,9 @@ namespace Gibraltar.Agent.Web
 
         #region Private Properties and Methods
 
-        private static bool IsExcludedExtension(string extension)
+        internal static bool IsExcludedExtension(string extension)
         {
-            //quick bail for obvious false case
-            if (extension.Equals("aspx", StringComparison.Ordinal) || extension.Equals("asmx", StringComparison.Ordinal))
-                return false;
-
-            foreach (string excludedExtension in ExcludedExtensions)
-            {
-                if (extension.Equals(excludedExtension, StringComparison.Ordinal))
-                    return true;
-            }
-
-            return false;
+            return ExcludedExtensions.Contains(extension);
         }
 
         #endregion
@@ -133,11 +125,12 @@ namespace Gibraltar.Agent.Web
         private void HttpApplicationBeginRequest(object sender, EventArgs e)
         {
             //we could have a current request - if the last request aborted or ended early.
-            if (m_CurrentRequestMetric != null)
+            var oldMetric = Interlocked.Exchange(ref m_CurrentRequestMetric, null);
+            if (oldMetric != null)
             {
                 //but we aren't going to consider its timing valid because who knows how long it sat in the queue.
-                m_CurrentRequestMetric.Suppress();
-                m_CurrentRequestMetric.Dispose();
+                oldMetric.Suppress();
+                oldMetric.Dispose();
             }
 
             //create a new metric.  We then go configure it, but we may set it back to null if this is an image or something.

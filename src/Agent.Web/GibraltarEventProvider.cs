@@ -23,6 +23,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Web.Management;
 using System.Xml;
+using Gibraltar.Agent.Logging;
 using Gibraltar.Agent.Web.Internal;
 
 #endregion

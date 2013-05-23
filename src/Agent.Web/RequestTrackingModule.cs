@@ -25,6 +25,8 @@ using Gibraltar.Agent.Web.Internal;
 
 namespace Gibraltar.Agent.Web
 {
+    using System.Threading;
+
     /// <summary>
     /// An ASP.NET HttpModule for performance tracking with Gibraltar.
     /// </summary>
@@ -123,11 +125,12 @@ namespace Gibraltar.Agent.Web
         private void HttpApplicationBeginRequest(object sender, EventArgs e)
         {
             //we could have a current request - if the last request aborted or ended early.
-            if (m_CurrentRequestMetric != null)
+            var oldMetric = Interlocked.Exchange(ref m_CurrentRequestMetric, null);
+            if (oldMetric != null)
             {
                 //but we aren't going to consider its timing valid because who knows how long it sat in the queue.
-                m_CurrentRequestMetric.Suppress();
-                m_CurrentRequestMetric.Dispose();
+                oldMetric.Suppress();
+                oldMetric.Dispose();
             }
 
             //create a new metric.  We then go configure it, but we may set it back to null if this is an image or something.

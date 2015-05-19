@@ -21,6 +21,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Security.Principal;
 using System.Text;
+using System.Web;
 using System.Web.Management;
 using System.Xml;
 using Gibraltar.Agent.Logging;
@@ -428,7 +429,24 @@ namespace Gibraltar.Agent.Web
             XmlDocument requestXml = new XmlDocument();
             XmlElement requestNode = requestXml.CreateElement("requestInformation");
             requestXml.AppendChild(requestNode);
-            
+
+            var sessionId = HttpContext.Current.Items["LoupeSessionId"] as string;
+            var agentSessionId = HttpContext.Current.Items["LoupeAgentSessionId"] as string;
+
+            if (!string.IsNullOrEmpty(sessionId))
+            {
+                XmlElement sessionIdNode = requestXml.CreateElement("sessionId");
+                sessionIdNode.InnerText = sessionId;
+                requestNode.AppendChild(sessionIdNode);
+            }
+
+            if (!string.IsNullOrEmpty(agentSessionId))
+            {
+                XmlElement agentSessionIdNode = requestXml.CreateElement("sessionId");
+                agentSessionIdNode.InnerText = agentSessionId;
+                requestNode.AppendChild(agentSessionIdNode);                
+            }
+
             if (string.IsNullOrEmpty(requestInformation.RequestUrl) == false)
             {
                 XmlElement requestUrlNode = requestXml.CreateElement("requestUrl");

@@ -14,13 +14,9 @@
     <summary />
     <releaseNotes>See http://www.gibraltarsoftware.com/support/Loupe/Latest_Version for full release notes</releaseNotes>
     <tags>Loupe Logging ASP.NET WebForms</tags>	
-    <dependencies>
-      <dependency id="Gibraltar.Agent" version="3.7.4.2481" />
-    </dependencies>
   </metadata>
   <files>
-    <file src="**\*.cs" target="src" />
     <file src="content\*.*" target="content" />
-    <file src="bin\release\Gibraltar.Agent.Web.*" target="lib" />
+    <file src="bin\release\Gibraltar.Agent.Web.pdb" target="lib\net20" />
   </files>
 </package>

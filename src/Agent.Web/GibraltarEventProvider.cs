@@ -442,9 +442,19 @@ namespace Gibraltar.Agent.Web
 
             if (!string.IsNullOrEmpty(agentSessionId))
             {
-                XmlElement agentSessionIdNode = requestXml.CreateElement("sessionId");
+                XmlElement agentSessionIdNode = requestXml.CreateElement("agentSessionId");
                 agentSessionIdNode.InnerText = agentSessionId;
                 requestNode.AppendChild(agentSessionIdNode);                
+            }
+
+            if (!string.IsNullOrEmpty(sessionId) && HttpContext.Current.Cache[sessionId] != null)
+            {
+                var clientDetails = HttpContext.Current.Cache[sessionId] as string;
+                clientDetails = clientDetails.Substring(15, clientDetails.Length - 31);
+
+                XmlElement clientDetailsNode = requestXml.CreateElement("clientDetails");
+                clientDetailsNode.InnerXml = clientDetails;
+                requestNode.AppendChild(clientDetailsNode);
             }
 
             if (string.IsNullOrEmpty(requestInformation.RequestUrl) == false)

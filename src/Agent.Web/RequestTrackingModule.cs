@@ -153,6 +153,8 @@ namespace Gibraltar.Agent.Web
                 HttpRequest request = application.Request;
                 string fullAppRelativePath = request.AppRelativeCurrentExecutionFilePath;
 
+
+
                 if (string.IsNullOrEmpty(fullAppRelativePath) == false)
                 {
 
@@ -160,6 +162,16 @@ namespace Gibraltar.Agent.Web
                     if (fullAppRelativePath.StartsWith("~/"))
                     {
                         fullAppRelativePath = fullAppRelativePath.Substring(2);
+                    }
+
+                    // check if this is a call from a loupe JS agent
+                    if (fullAppRelativePath == "loupe/log")
+                    {
+                        // we don't record requests from our own JS agents
+                        // to avoid it cluttering the users metrics  so we 
+                        // set the current request metric to null and exit
+                        m_CurrentRequestMetric = null;
+                        return;
                     }
 
                     m_CurrentRequestMetric.AbsolutePath = fullAppRelativePath;

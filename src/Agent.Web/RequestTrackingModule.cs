@@ -297,6 +297,14 @@ namespace Gibraltar.Agent.Web
         {
             if (m_CurrentRequestMetric != null)
             {
+                if (HttpContext.Current.User != null)
+                {
+                    m_CurrentRequestMetric.UserName = HttpContext.Current.User.Identity.Name;
+                }
+                m_CurrentRequestMetric.SessionId = HttpContext.Current.Items["LoupeSessionId"] as string;
+                m_CurrentRequestMetric.AgentSessionId = HttpContext.Current.Items["LoupeAgentSessionId"] as string;
+                
+
                 //dispose the metric to have it record itself and then clear our pointer.
                 m_CurrentRequestMetric.Dispose();
                 m_CurrentRequestMetric = null;

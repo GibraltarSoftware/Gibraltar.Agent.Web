@@ -10,9 +10,9 @@ use any viewer for Loupe to visualize network information.
 Implementation Notes
 --------------------
 
-Since Loupe supports .NET 2.0 and later and the WebForms capabilties are available
+Since Loupe supports .NET 2.0 and later and the WebForms capabilities are available
 in .NET 2.0 this agent targets .NET 2.0 as well.  Due to the built-in compatibility handling in the
-.NET runtime it can be used by any subsequent verison of .NET so there's no need for a .NET 4.0 or later
+.NET runtime it can be used by any subsequent version of .NET so there's no need for a .NET 4.0 or later
 version unless modifying to support something only available in .NET 4.0 or later.
 
 

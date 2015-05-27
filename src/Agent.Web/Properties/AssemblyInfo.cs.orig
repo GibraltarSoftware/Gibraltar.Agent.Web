@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
@@ -35,4 +36,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("3.8.0")]
 [assembly: AssemblyFileVersion("3.8.0")]
 [assembly: CLSCompliant(true)]
+<<<<<<< HEAD
 [assembly: AssemblyInformationalVersionAttribute("3.8.0")]
+=======
+[assembly: AssemblyInformationalVersionAttribute("3.0.0.0")]
+[assembly: InternalsVisibleTo("Agent.Web.Test")]
+>>>>>>> master

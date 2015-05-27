@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Agent for ASP.NET")]
+[assembly: AssemblyTitle("Loupe Agent for ASP.NET")]
 [assembly: AssemblyDescription("ASP.NET Health Monitoring and Metrics for Loupe")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Gibraltar Software Inc.")]
@@ -32,7 +32,7 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.0.0.0")]
-[assembly: AssemblyFileVersion("3.0.0.0")]
+[assembly: AssemblyVersion("3.8.0")]
+[assembly: AssemblyFileVersion("3.8.0")]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyInformationalVersionAttribute("3.0.0.0")]
+[assembly: AssemblyInformationalVersionAttribute("3.8.0")]

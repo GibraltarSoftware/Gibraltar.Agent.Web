@@ -96,6 +96,15 @@ namespace Gibraltar.Agent.Web.Internal
             Description = "The query string used for the request")]
         public string QueryString { get; set; }
 
+        [EventMetricValue("userName", SummaryFunction.Count, null, Caption = "User", Description = "The user associated with the action being performed")]
+        public string UserName { get; set; }
+
+        [EventMetricValue("SessionId", SummaryFunction.Count,null,Caption = "SessionId", Description = "Session Id associated with action being performed")]
+        public string SessionId { get; set; }
+
+        [EventMetricValue("AgentSessionId", SummaryFunction.Count, null, Caption = "AgentSessionId", Description = "Id from JavaScript agent for session")]
+        public string AgentSessionId { get; set; }
+
         /// <summary>
         /// If called prevents the metric from recording its result when disposed (likely because it wouldn't be considered valid)
         /// </summary>

@@ -153,6 +153,8 @@ namespace Gibraltar.Agent.Web
                 HttpRequest request = application.Request;
                 string fullAppRelativePath = request.AppRelativeCurrentExecutionFilePath;
 
+
+
                 if (string.IsNullOrEmpty(fullAppRelativePath) == false)
                 {
 
@@ -160,6 +162,16 @@ namespace Gibraltar.Agent.Web
                     if (fullAppRelativePath.StartsWith("~/"))
                     {
                         fullAppRelativePath = fullAppRelativePath.Substring(2);
+                    }
+
+                    // check if this is a call from a loupe JS agent
+                    if (fullAppRelativePath == "loupe/log")
+                    {
+                        // we don't record requests from our own JS agents
+                        // to avoid it cluttering the users metrics  so we 
+                        // set the current request metric to null and exit
+                        m_CurrentRequestMetric = null;
+                        return;
                     }
 
                     m_CurrentRequestMetric.AbsolutePath = fullAppRelativePath;
@@ -297,6 +309,14 @@ namespace Gibraltar.Agent.Web
         {
             if (m_CurrentRequestMetric != null)
             {
+                if (HttpContext.Current.User != null)
+                {
+                    m_CurrentRequestMetric.UserName = HttpContext.Current.User.Identity.Name;
+                }
+                m_CurrentRequestMetric.SessionId = HttpContext.Current.Items["LoupeSessionId"] as string;
+                m_CurrentRequestMetric.AgentSessionId = HttpContext.Current.Items["LoupeAgentSessionId"] as string;
+                
+
                 //dispose the metric to have it record itself and then clear our pointer.
                 m_CurrentRequestMetric.Dispose();
                 m_CurrentRequestMetric = null;

@@ -108,7 +108,7 @@ namespace Gibraltar.Agent.Web
                     return; //the user has other ways of knowing we're alive, we don't want to record this.
                 if (raisedEvent.EventCode == WebEventCodes.ApplicationShutdown)
                 {
-                    //call end session and tell it our sucess information
+                    //call end session and tell it our success information
                     Log.EndSession(SessionStatus.Normal, raisedEvent.Message);
                     return;
                 }

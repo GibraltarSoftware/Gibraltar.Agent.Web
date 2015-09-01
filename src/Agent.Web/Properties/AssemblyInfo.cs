@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Loupe Agent for ASP.NET")]
 [assembly: AssemblyDescription("ASP.NET Health Monitoring and Metrics for Loupe")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Gibraltar Software Inc.")]
+[assembly: AssemblyCompany("Gibraltar Software, Inc.")]
 [assembly: AssemblyProduct("Loupe")]
-[assembly: AssemblyCopyright("Copyright © 2008-2013 Gibraltar Software Inc.")]
+[assembly: AssemblyCopyright("Copyright © 2008-2015 Gibraltar Software, Inc.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,7 +32,7 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.8.0")]
-[assembly: AssemblyFileVersion("3.8.0")]
+[assembly: AssemblyVersion("4.0.0.0")]
+[assembly: AssemblyFileVersion("3.8.1.2710")]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyInformationalVersionAttribute("3.8.0")]
+[assembly: AssemblyInformationalVersionAttribute("3.8.1.2710")]

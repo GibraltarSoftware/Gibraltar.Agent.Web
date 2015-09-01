@@ -6,8 +6,9 @@
     <title>Loupe Agent for ASP.NET WebForms</title>
     <authors>Gibraltar Software</authors>
     <owners>Gibraltar Software</owners>
-    <licenseUrl>http://www.gibraltarsoftware.com/Support/Documentation.aspx?Page=Reference_GibraltarAgentLicense.html</licenseUrl>
-    <projectUrl>http://www.gibraltarsoftware.com/External/Getting-Started-video.aspx</projectUrl>
+    <copyright>Copyright © 2008-2015 Gibraltar Software, Inc.</copyright>
+    <licenseUrl>https://github.com/GibraltarSoftware/Gibraltar.Agent.Web/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/GibraltarSoftware/Gibraltar.Agent.Web</projectUrl>
     <iconUrl>http://www.gibraltarsoftware.com/loupe.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Records diagnostic information about your ASP.NET web site in the background while it runs.  Designed for use in a production environment, it extends the Loupe Agent with features specific to ASP.NET WebForms.</description>

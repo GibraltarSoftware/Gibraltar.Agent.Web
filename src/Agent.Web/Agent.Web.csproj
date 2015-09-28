@@ -48,7 +48,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Gibraltar.Agent, Version=4.0.0.0, Culture=neutral, PublicKeyToken=ca42a1ee8d2e42d3, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Gibraltar.Agent.3.8.1.2710-beta\lib\net20\Gibraltar.Agent.dll</HintPath>
+      <HintPath>..\..\packages\Gibraltar.Agent.4.0.0.3015\lib\net20\Gibraltar.Agent.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

@@ -26,7 +26,7 @@ using Gibraltar.Agent.Web.Internal;
 namespace Gibraltar.Agent.Web
 {
     /// <summary>
-    /// An ASP.NET HttpModule for performance tracking with Gibraltar.
+    /// An ASP.NET HttpModule for performance tracking with Loupe.
     /// </summary>
     public class RequestTrackingModule : IHttpModule
     {
@@ -152,8 +152,6 @@ namespace Gibraltar.Agent.Web
                 //figure out the page and the full path in our friendly form.
                 HttpRequest request = application.Request;
                 string fullAppRelativePath = request.AppRelativeCurrentExecutionFilePath;
-
-
 
                 if (string.IsNullOrEmpty(fullAppRelativePath) == false)
                 {
@@ -309,13 +307,16 @@ namespace Gibraltar.Agent.Web
         {
             if (m_CurrentRequestMetric != null)
             {
-                if (HttpContext.Current.User != null)
+                if (HttpContext.Current != null)
                 {
-                    m_CurrentRequestMetric.UserName = HttpContext.Current.User.Identity.Name;
+                    if (HttpContext.Current.User != null)
+                    {
+                        m_CurrentRequestMetric.UserName = HttpContext.Current.User.Identity.Name;
+                    }
+
+                    m_CurrentRequestMetric.SessionId = HttpContext.Current.Items["LoupeSessionId"] as string;
+                    m_CurrentRequestMetric.AgentSessionId = HttpContext.Current.Items["LoupeAgentSessionId"] as string;
                 }
-                m_CurrentRequestMetric.SessionId = HttpContext.Current.Items["LoupeSessionId"] as string;
-                m_CurrentRequestMetric.AgentSessionId = HttpContext.Current.Items["LoupeAgentSessionId"] as string;
-                
 
                 //dispose the metric to have it record itself and then clear our pointer.
                 m_CurrentRequestMetric.Dispose();

@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Agent.Web.nuspec" />
+    <None Include="content\web.config.transform" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

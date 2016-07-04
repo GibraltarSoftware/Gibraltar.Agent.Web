@@ -32,7 +32,7 @@ using Gibraltar.Agent.Web.Internal;
 namespace Gibraltar.Agent.Web
 {
     /// <summary>
-    /// A standard ASP.NET Health Event Provider that uses the Gibraltar infrastructure.
+    /// A standard ASP.NET Health Event Provider that uses the Loupe infrastructure.
     /// </summary>
     public class GibraltarEventProvider 
         : WebEventProvider
@@ -71,12 +71,12 @@ namespace Gibraltar.Agent.Web
         {
             get
             {
-                return "ASP.NET Health Event Provider that uses the Gibraltar Application Monitoring infrastructure";
+                return "ASP.NET Health Event Provider that uses the Loupe Application Monitoring infrastructure";
             }
         }
 
         /// <summary>
-        /// Moves the events from the provider's buffer into Gibraltar. 
+        /// Moves the events from the provider's buffer into Loupe. 
         /// </summary>
         public override void Flush()
         {

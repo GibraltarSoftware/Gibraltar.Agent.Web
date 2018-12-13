@@ -31,7 +31,7 @@ namespace Gibraltar.Agent.Web
     public class RequestTrackingModule : IHttpModule
     {
         private static readonly char[] Delimiters = new [] { '/', '\\' };
-        private static readonly string[] ExcludedExtensions = new [] { "jpg", "jpeg", "gif", "png", "ico", "css", "js", "bmp"};
+        private static readonly string[] ExcludedExtensions = new [] { "svg", "jpg", "jpeg", "gif", "png", "ico", "css", "js", "bmp"};
 
         private HttpRequestMetric m_CurrentRequestMetric;
 

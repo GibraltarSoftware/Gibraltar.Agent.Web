@@ -38,6 +38,7 @@ namespace Gibraltar.Agent.Web.Internal
         private Stopwatch m_ReleaseRequestStateTimer;
         private Stopwatch m_UpdateRequestCacheTimer;
         private Stopwatch m_LogRequestTimer;
+        private Stopwatch m_MapRequestTimer;
 
         public HttpRequestMetric()
         {
@@ -67,6 +68,12 @@ namespace Gibraltar.Agent.Web.Internal
             Description = "The time it took for the request to be looked up in cache")]
         public double ResolveRequestCacheDuration { get; private set; }
 
+#if NET_4_5
+        [EventMetricValue("mapRequestDuration", SummaryFunction.Average, "Milliseconds", Caption = "Map Request Duration",
+            Description = "The time it took for the request to be mapped to the appropriate handler")]
+        public double MapRequestDuration { get; private set; }
+#endif
+
         [EventMetricValue("acquireRequestStateDuration", SummaryFunction.Average, "Milliseconds", Caption = "Acquire Request State Duration", 
             Description = "The time it took for the request state to be acquired")]
         public double AcquireRequestStateDuration { get; private set; }
@@ -90,7 +97,6 @@ namespace Gibraltar.Agent.Web.Internal
         [EventMetricValue("servedFromCache", SummaryFunction.Average, "Hits", Caption = "Cached Response",
             Description = "Indicates if the response was served from the output cache instead of generated.")]
         public bool ServedFromCache { get; private set; }
-
 
         [EventMetricValue("queryString", SummaryFunction.Count, "Hits", Caption = "Query String",
             Description = "The query string used for the request")]
@@ -224,6 +230,18 @@ namespace Gibraltar.Agent.Web.Internal
         {
             LogRequestDuration = StopAndRecordDuration(m_LogRequestTimer);
         }
+
+        internal void MapRequestStart()
+        {
+            m_MapRequestTimer = Stopwatch.StartNew();
+        }
+
+#if NET_4_5
+        internal void MapRequestEnd()
+        {
+            MapRequestDuration = StopAndRecordDuration(m_MapRequestTimer);
+        }
+#endif
 
         #endregion
 

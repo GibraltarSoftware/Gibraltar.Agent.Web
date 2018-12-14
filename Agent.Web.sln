@@ -17,15 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Agent.Web", "src\Agent.Web\Agent.Web.shproj", "{E061E445-9E1D-4CDC-87F4-E68A26C104F7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agent.Web.NET45", "src\Agent.Web.NET45\Agent.Web.NET45.csproj", "{EE408E08-273B-4CD3-A59B-073AE754E0DF}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		src\Agent.Web\Agent.Web.projitems*{b15eb772-5642-43ac-8f80-20a8c9d1ee34}*SharedItemsImports = 4
-		src\Agent.Web\Agent.Web.projitems*{ee408e08-273b-4cd3-a59b-073ae754e0df}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

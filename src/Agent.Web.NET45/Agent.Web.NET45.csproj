@@ -41,7 +41,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET_4_5</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Gibraltar.Agent.Web.xml</DocumentationFile>
@@ -60,6 +60,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Agent.Web.NET20\GibraltarEventProvider.cs">
+      <Link>GibraltarEventProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Agent.Web.NET20\Internal\HttpRequestMetric.cs">
+      <Link>Internal\HttpRequestMetric.cs</Link>
+    </Compile>
+    <Compile Include="..\Agent.Web.NET20\Internal\WebRequestSourceProvider.cs">
+      <Link>Internal\WebRequestSourceProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Agent.Web.NET20\RequestTrackingModule.cs">
+      <Link>RequestTrackingModule.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,7 +79,6 @@
     <None Include="content\web.config.transform" />
     <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="..\Agent.Web\Agent.Web.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>

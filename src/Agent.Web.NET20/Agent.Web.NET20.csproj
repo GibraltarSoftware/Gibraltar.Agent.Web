@@ -57,7 +57,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GibraltarEventProvider.cs" />
+    <Compile Include="Internal\HttpRequestMetric.cs" />
+    <Compile Include="Internal\WebRequestSourceProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestTrackingModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Agent.Web.NET20.nuspec">
@@ -67,7 +71,6 @@
     <None Include="content\web.config.transform" />
     <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="..\Agent.Web\Agent.Web.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>

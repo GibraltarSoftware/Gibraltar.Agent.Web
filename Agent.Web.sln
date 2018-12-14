@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agent.Web", "src\Agent.Web\Agent.Web.csproj", "{B15EB772-5642-43AC-8F80-20A8C9D1EE34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agent.Web.NET20", "src\Agent.Web.NET20\Agent.Web.NET20.csproj", "{B15EB772-5642-43AC-8F80-20A8C9D1EE34}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dependencies", "dependencies", "{E44ADE17-1E0A-407D-A4AA-DE5593FDA934}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agent.Web.NET45", "src\Agent.Web.NET45\Agent.Web.NET45.csproj", "{EE408E08-273B-4CD3-A59B-073AE754E0DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,8 +29,15 @@ Global
 		{B15EB772-5642-43AC-8F80-20A8C9D1EE34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B15EB772-5642-43AC-8F80-20A8C9D1EE34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B15EB772-5642-43AC-8F80-20A8C9D1EE34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE408E08-273B-4CD3-A59B-073AE754E0DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE408E08-273B-4CD3-A59B-073AE754E0DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE408E08-273B-4CD3-A59B-073AE754E0DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE408E08-273B-4CD3-A59B-073AE754E0DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5007CB1-802E-4D00-BB4E-4E9C794DC9D3}
 	EndGlobalSection
 EndGlobal

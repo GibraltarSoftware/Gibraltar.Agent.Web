@@ -6,7 +6,7 @@
     <title>Loupe Agent for ASP.NET WebForms</title>
     <authors>Gibraltar Software</authors>
     <owners>Gibraltar Software</owners>
-    <copyright>Copyright © 2008-2016 Gibraltar Software, Inc.</copyright>
+    <copyright>Copyright © 2008-2018 Gibraltar Software, Inc.</copyright>
     <licenseUrl>https://github.com/GibraltarSoftware/Gibraltar.Agent.Web/blob/master/LICENSE.txt</licenseUrl>
     <projectUrl>https://github.com/GibraltarSoftware/Gibraltar.Agent.Web</projectUrl>
     <iconUrl>http://www.gibraltarsoftware.com/loupe.ico</iconUrl>
@@ -19,5 +19,8 @@
   <files>
     <file src="content\*.*" target="content" />
     <file src="bin\release\Gibraltar.Agent.Web.pdb" target="lib\net20" />
+    <file src="..\Agent.Web.NET45\bin\release\Gibraltar.Agent.Web.dll" target="lib\net45" />
+    <file src="..\Agent.Web.NET45\bin\release\Gibraltar.Agent.Web.pdb" target="lib\net45" />
+    <file src="..\Agent.Web.NET45\bin\release\Gibraltar.Agent.Web.xml" target="lib\net45" />
   </files>
 </package>

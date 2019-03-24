@@ -366,31 +366,35 @@ namespace Gibraltar.Agent.Web
                     }
 
                     m_CurrentRequestMetric.AbsolutePath = fullAppRelativePath;
-
-                    //now see if we can find just the file name.
-                    int fileStartIndex = fullAppRelativePath.LastIndexOfAny(Delimiters);
-                    if (fileStartIndex == -1)
-                        fileStartIndex = 0; //we never found a slash, so we start at zero.
-                    else
-                        fileStartIndex++; //because we don't really want the slash.
-
-                    //and we don't want any extension for this pretty name...
-                    int extensionIndex = fullAppRelativePath.IndexOf('.', fileStartIndex);
-                    if (extensionIndex == -1)
-                        extensionIndex = fullAppRelativePath.Length - 1; //so we go to the end.
-
-                    int nameLength = (extensionIndex - fileStartIndex);
-                    m_CurrentRequestMetric.PageName = (nameLength  > 0) ? fullAppRelativePath.Substring(fileStartIndex, (extensionIndex - fileStartIndex)) : string.Empty;
-
                     m_CurrentRequestMetric.QueryString = request.Url.Query;
 
-                    //and get the extension as well, so we can decide if we even care about this guy.
-                    if (extensionIndex < (fullAppRelativePath.Length - 1))
+                    if (string.IsNullOrWhiteSpace(fullAppRelativePath) == false)
                     {
-                        string extension = fullAppRelativePath.Substring(extensionIndex + 1); //add the one to get rid of the period.
+                        //now see if we can find just the file name.
+                        int fileStartIndex = fullAppRelativePath.LastIndexOfAny(Delimiters);
+                        if (fileStartIndex == -1)
+                            fileStartIndex = 0; //we never found a slash, so we start at zero.
+                        else
+                            fileStartIndex++; //because we don't really want the slash.
 
-                        if ((string.IsNullOrEmpty(extension) == false) && (IsExcludedExtension(extension.ToLowerInvariant())))
-                            m_CurrentRequestMetric = null; //so we don't record jack.
+                        //and we don't want any extension for this pretty name...
+                        int nameLength = fullAppRelativePath.Length - fileStartIndex;
+                        int extensionIndex = fullAppRelativePath.LastIndexOf('.');
+                        if (extensionIndex > fileStartIndex)
+                        {
+                            nameLength = (extensionIndex - fileStartIndex);
+
+                            //and get the extension as well, so we can decide if we even care about this guy.
+                            if (extensionIndex < (fullAppRelativePath.Length - 1))
+                            {
+                                string extension = fullAppRelativePath.Substring(extensionIndex + 1); //add the one to get rid of the period.
+                                if ((string.IsNullOrEmpty(extension) == false) && (IsExcludedExtension(extension.ToLowerInvariant())))
+                                    m_CurrentRequestMetric = null; //so we don't record jack.
+                            }
+                        }
+
+                        if (m_CurrentRequestMetric != null)
+                            m_CurrentRequestMetric.PageName = (nameLength > 0) ? fullAppRelativePath.Substring(fileStartIndex, nameLength) : string.Empty;
                     }
 
                     //careful!  at this point the current request may be null

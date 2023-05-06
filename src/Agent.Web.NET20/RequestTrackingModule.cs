@@ -368,7 +368,11 @@ namespace Gibraltar.Agent.Web
                     m_CurrentRequestMetric.AbsolutePath = fullAppRelativePath;
                     m_CurrentRequestMetric.QueryString = request.Url.Query;
 
+#if NET_4_5
                     if (string.IsNullOrWhiteSpace(fullAppRelativePath) == false)
+#else
+                    if (string.IsNullOrEmpty(fullAppRelativePath) == false)
+#endif
                     {
                         //now see if we can find just the file name.
                         int fileStartIndex = fullAppRelativePath.LastIndexOfAny(Delimiters);

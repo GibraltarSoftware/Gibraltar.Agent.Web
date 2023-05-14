@@ -1,7 +1,7 @@
 Loupe Agent for ASP.NET WebForms (Moved to Gibraltar.Agent)
 ===================
 
-**This repository has been merged with the [Gibraltar.Agent](https://github.com/GibraltarSoftware/Gibfraltar.Agent)
+**This repository has been merged with the [Gibraltar.Agent](https://github.com/GibraltarSoftware/Gibraltar.Agent)
 Repository and is now maintained there.**
 
 This agent adds ASP.NET WebForms-specific monitoring features.  If you don't need
